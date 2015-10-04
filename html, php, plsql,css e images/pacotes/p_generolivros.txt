@@ -1,0 +1,23 @@
+create or replace 
+PACKAGE P_GENEROLIVROS AS
+
+
+procedure sel(p_error out number, p_errormsg out varchar2, p_cursor out sys_refcursor);
+
+
+END P_GENEROLIVROS;
+------------------------------------------------------------------
+create or replace 
+PACKAGE BODY P_GENEROLIVROS AS
+
+procedure sel(p_error out number, p_errormsg out varchar2, p_cursor out sys_refcursor) IS 
+Begin 
+p_error:=0;
+
+Open p_cursor for select gen_id_f, liv_id_f from generolivros;
+null;
+exception when others then p_error:=1;
+p_errormsg:='Select in generolivros:'||sqlerrm ;
+end;
+
+END P_GENEROLIVROS;

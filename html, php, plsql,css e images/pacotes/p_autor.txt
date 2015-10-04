@@ -1,0 +1,26 @@
+------------------------------------------------------------------
+create or replace 
+PACKAGE P_AUTOR AS 
+
+  /* TODO enter package declarations (types, exceptions, methods etc) here */ 
+  
+procedure sel(p_error out number, p_errormsg out varchar2, p_cursor out sys_refcursor);
+
+END P_AUTOR;
+------------------------------------------------------------------
+
+create or replace 
+PACKAGE BODY P_AUTOR AS
+
+procedure sel(p_error out number, p_errormsg out varchar2, p_cursor out sys_refcursor) IS 
+Begin 
+p_error:=0;
+
+Open p_cursor for select aut_id, aut_nome, aut_dt_nasc from autor;
+
+null;
+exception when others then p_error:=1;
+p_errormsg:='Select in autores:'||sqlerrm ;
+end;
+
+END P_AUTOR;

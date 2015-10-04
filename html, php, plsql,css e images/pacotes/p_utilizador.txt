@@ -1,0 +1,20 @@
+create or replace 
+PACKAGE P_UTILIZADORES AS 
+procedure sel(p_error out number, p_errormsg out varchar2, p_cursor out sys_refcursor);
+END P_UTILIZADORES;
+------------------------------------------------------------------
+create or replace 
+PACKAGE BODY P_UTILIZADORES AS
+
+ 
+procedure sel(p_error out number, p_errormsg out varchar2, p_cursor out sys_refcursor) IS 
+Begin 
+p_error:=0;
+
+Open p_cursor for select tpu_id_f, uti_bi, uti_dt_nasc, uti_email, uti_id, uti_morada, uti_nib, uti_nome, uti_pass, uti_user from utilizador;
+null;
+exception when others then p_error:=1;
+p_errormsg:='Select in utilizador:'||sqlerrm ;
+end;
+
+END P_UTILIZADORES;
